@@ -1,12 +1,13 @@
 public class App {
-    protected static int x=100;
+    protected static int buffer;
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
-        Contatore conta = new Contatore(0, 1);
-        Thread thr1 = new UnThread1("yogi", conta);
-        Thread thr2 = new UnThread1("bubu", conta);
-
-        thr1.start();
-        thr2.start();
+        Semaforo pieno = new Semaforo(0);
+        Semaforo vuoto = new Semaforo(1);
+        ProduciDato prod = new ProduciDato(pieno, vuoto);
+        ConsumaDato cons = new ConsumaDato(pieno, vuoto);
+        prod.start();
+        cons.start();
+        System.out.println("main: termine avvio thread");
     }
 }
